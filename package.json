@@ -14,6 +14,17 @@
     "auto-width",
     "column-width"
   ],
-  "author": "dianclar (https://github.com/dianclar)",
-  "license": "ISC"
+  "author": {
+    "name": "dianclar",
+    "url": "https://github.com/dianclar"
+  },
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dianclar/el-table-auto-width.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dianclar/el-table-auto-width/issues"
+  },
+  "homepage": "https://github.com/dianclar/el-table-auto-width#readme"
 }
