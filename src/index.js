@@ -35,12 +35,12 @@ export default {
   //   elUpdate(el, b, vnode)
   // },
 
-  unbind(el) {
-    if (el.observer) {
-      el.observer.disconnect();
-      el.observer = null;
-    }
-  },
+  //   unbind(el) {
+  //     if (el.observer) {
+  //       el.observer.disconnect()
+  //       el.observer = null
+  //     }
+  //   },
 };
 
 const elUpdate = async (el, b, vnode) => {
@@ -109,12 +109,19 @@ const elUpdate = async (el, b, vnode) => {
       cell.style.whiteSpace = "nowrap";
       cell.style.minWidth = "fit-content";
       cell.style.width = 0;
-      const w = cell.scrollWidth;
+      let w = cell.scrollWidth;
+      if (w > 500) {
+        cell.style.minWidth = "normal";
+        cell.style.whiteSpace = "normal";
+        w = 500;
+      } else if (w < 100) {
+        w = 100;
+      }
       // cell.classList.remove('tabautowidthc')
       cell.style.width = "";
       return w;
     });
-    const width = Math.max(...widthList) >= 100 ? Math.max(...widthList) : 100;
+    const width = Math.max(...widthList);
     vm.$set(b.value, th.textContent, width);
   }
 
