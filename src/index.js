@@ -87,10 +87,7 @@ const elUpdate = async (el, b, vnode) => {
   // if (td.length == 0) await val1()
 
   for (const th of thl) {
-    const col = [
-      th,
-      ...td.filter((el) => el.className.includes(`${th.classList[0]}`)),
-    ];
+    const col = [th, ...td.filter((el) => el.classList[0] == th.classList[0])];
     // const val2 = () => {
     //   return new Promise(resolve => {
     //     const int = setInterval(() => {

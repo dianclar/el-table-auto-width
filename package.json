@@ -1,6 +1,6 @@
 {
   "name": "el-table-auto-width",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "vue2 + el-table 的自动适配列宽指令，列宽随内容自动撑开，兼容固定列",
   "main": "src/index.js",
   "scripts": {
