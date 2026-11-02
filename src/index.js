@@ -1,30 +1,12 @@
 export default {
   //inserted componentUpdated
   inserted(el, b, vnode) {
-    // const style = document.createElement('style')
-    // style.innerHTML = `
-    // .tabautowidth{
-    //   white-space : nowrap !important;
-    //   min-width : fit-content !important;
-    // }
-    // .tabautowidthc{
-    //   width : 0 !important;
-    // }`
-    // el.appendChild(style)
-    el.observer = new MutationObserver(() => {
-      // if (new Date() - el.dataset.time < 300) return
-      // el.dataset.time = new Date().getTime()
-      el.observer.disconnect();
-      elUpdate(el, b, vnode);
-    });
-    el.observer.observe(el, {
-      attributeFilter: ["style"],
-      // childList: true,
-      // characterData: true,
-      subtree: true,
-    });
+    el.v = 2;
+    start(el, b, vnode);
+  },
 
-    // elUpdate(el, b, vnode)
+  mounted(el, b, vnode) {
+    start(el, b, vnode);
   },
 
   // componentUpdated(el, b, vnode) {
@@ -36,15 +18,48 @@ export default {
   // },
 
   unbind(el) {
-    if (el.observer) {
-      el.observer.disconnect();
-      el.observer = null;
-    }
+    end(el, b, vnode);
+  },
+  unmounted(el) {
+    end(el, b, vnode);
   },
 };
 
+const start = async (el, b, vnode) => {
+  // const style = document.createElement('style')
+  // style.innerHTML = `
+  // .tabautowidth{
+  //   white-space : nowrap !important;
+  //   min-width : fit-content !important;
+  // }
+  // .tabautowidthc{
+  //   width : 0 !important;
+  // }`
+  // el.appendChild(style)
+  el.observer = new MutationObserver(() => {
+    // if (new Date() - el.dataset.time < 300) return
+    // el.dataset.time = new Date().getTime()
+    el.observer.disconnect();
+    elUpdate(el, b, vnode);
+  });
+  el.observer.observe(el, {
+    attributeFilter: ["style"],
+    // childList: true,
+    // characterData: true,
+    subtree: true,
+  });
+
+  // elUpdate(el, b, vnode)
+};
+
+const end = async (el, b, vnode) => {
+  if (el.observer) {
+    el.observer.disconnect();
+    el.observer = null;
+  }
+};
+
 const elUpdate = async (el, b, vnode) => {
-  const vm = vnode.context;
   // await vm.$nextTick()
   let thl = [
     ...[
@@ -119,7 +134,8 @@ const elUpdate = async (el, b, vnode) => {
       return w;
     });
     const width = Math.max(...widthList);
-    vm.$set(b.value, th.textContent, width);
+    if (el.v) vnode.context.$set(b.value, th.textContent, width);
+    else b.value[th.textContent] = width;
   }
 
   // console.log(b.value)

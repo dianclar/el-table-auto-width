@@ -1,6 +1,6 @@
 # el-table-auto-width
 
-Vue2 + Element UI 的 el-table 列宽自动适配指令。自动计算每一列的最大内容宽度，并写回绑定对象，让表头与内容自适应不换行；同时支持配置列宽的下限与上限。
+Vue 与 Element UI / Plus 的 el-table 组件列宽自动适配指令。自动计算每一列的最大内容宽度，并写回绑定对象，让表头与内容自适应不换行；同时支持配置列宽的下限与上限。
 
 ## 特性
 
@@ -101,14 +101,13 @@ export default {
 - 指令绑定值为一个**对象**，计算完成后以 `列名 -> 宽度(px)` 的形式写入（列名取表头文本 `th.textContent`）
 - 列宽通过 `:min-width="colWidth[item.label]"` 绑定到对应列，不建议绑定 `:width`，否则列宽会完全固定，总长度不足会导致表格留白
 - 每列宽度取「表头 + 该列所有单元格」内容宽度（`scrollWidth`）的最大值，再经 `_min` / `_max` 修正
-- 计算时内部的 `.gutter` 列会被跳过；若存在固定列（`.el-table__fixed-right`），其表头也会一并参与计算
 - 表格样式变化（如容器 resize、列显隐、数据刷新）时会自动重新计算，无需手动调用
-- 指令在 `inserted` 时启动 MutationObserver 监听（监听表格内部 `style` 属性变化）；在 `unbind` 时断开观察器
+- 指令在绑定或组件加载时启动 MutationObserver 监听（监听表格内部 `style` 属性变化）；在卸载组件时断开观察器
 
 ## 注意事项
 
-- 仅支持 Vue 2 与 Element UI 的 el-table
-- 绑定对象必须是响应式数据（写在 `data()` 中），否则宽度写入后页面不会更新，宽度通过 `$set` 写入
+- 支持 Vue 与 Element UI / Plus 的 el-table 组件
+- 绑定对象必须是响应式数据（写在 `data()` 中或 `ref({})`），否则宽度写入后表格不会响应更新，Vue2 通过 `$set` 写入宽度
 - 宽度以列名作为 key，请尽量保证各列 label 唯一并避开上下限配置项；label 重复时多列共用同一个宽度值
 - 若表头使用自定义插槽并包含图标等元素，key 取的是这些元素的 textContent 内容
 
