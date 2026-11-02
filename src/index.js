@@ -18,10 +18,10 @@ export default {
   // },
 
   unbind(el) {
-    end(el, b, vnode);
+    end(el);
   },
   unmounted(el) {
-    end(el, b, vnode);
+    end(el);
   },
 };
 
@@ -52,7 +52,7 @@ const start = async (el, b, vnode) => {
   // elUpdate(el, b, vnode)
 };
 
-const end = async (el, b, vnode) => {
+const end = async (el) => {
   if (el.observer) {
     el.observer.disconnect();
     el.observer = null;
@@ -134,8 +134,9 @@ const elUpdate = async (el, b, vnode) => {
       return w;
     });
     const width = Math.max(...widthList);
-    if (el.v) vnode.context.$set(b.value, th.textContent, width);
-    else b.value[th.textContent] = width;
+    let key = [...th.classList].find((i) => i.includes("_width_"));
+    if (el.v) vnode.context.$set(b.value, key || th.textContent, width);
+    else b.value[key || th.textContent] = width;
   }
 
   // console.log(b.value)

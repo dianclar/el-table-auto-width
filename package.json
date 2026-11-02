@@ -1,7 +1,7 @@
 {
   "name": "el-table-auto-width",
   "version": "1.1.0",
-  "description": "Vue 与 Element UI / Plus 的 el-table 组件自动适配列宽指令，列宽随内容自动撑开，正常配置上下限",
+  "description": "Vue 与 Element UI / Plus 的 el-table 组件自动适配列宽指令，列宽随内容自动撑开，支持配置上下限。Auto column width for el-table",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,8 @@
     "el-table",
     "element-ui",
     "element-plus",
+    "fit-content",
+    "fit-width",
     "auto-width",
     "table-width",
     "column-width"
